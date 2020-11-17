@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  
+  
+  
+  <entry>
+    <title>GREP和AWK命令</title>
+    <link href="/2020/11/17/Linux%E5%92%8CShell/GREP%E5%92%8CAWK/"/>
+    <url>/2020/11/17/Linux%E5%92%8CShell/GREP%E5%92%8CAWK/</url>
+    
+    <content type="html"><![CDATA[<h1 id="GREP"><a href="#GREP" class="headerlink" title="GREP"></a>GREP</h1><p>Linux grep 命令用于查找文件里符合条件的字符串。</p><p>grep 指令用于查找内容包含指定的范本样式的文件，如果发现某文件的内容符合所指定的范本样式，预设 grep 指令会把含有范本样式的那一列显示出来。若不指定任何文件名称，或是所给予的文件名为 -，则 grep 指令会从标准输入设备读取数据。<br>grep常与其他命令混合使用</p><h2 id="1-查找某端口运行的程序"><a href="#1-查找某端口运行的程序" class="headerlink" title="1. 查找某端口运行的程序"></a>1. 查找某端口运行的程序</h2><p>查找8080端口运行的程序<br>实例：</p><pre><code class="hljs bash">netstat -nlp | grep :8080</code></pre><h1 id="AWK"><a href="#AWK" class="headerlink" title="AWK"></a>AWK</h1><p>AWK 是一种处理文本文件的语言，是一个强大的文本分析工具。</p><p>之所以叫 AWK 是因为其取了三位创始人 Alfred Aho，Peter Weinberger, 和 Brian Kernighan 的 Family Name 的首字符。</p><h2 id="综合运用"><a href="#综合运用" class="headerlink" title="综合运用"></a>综合运用</h2><h2 id="1-终止某端口运行的程序"><a href="#1-终止某端口运行的程序" class="headerlink" title="1. 终止某端口运行的程序"></a>1. 终止某端口运行的程序</h2><p>终止8080端口运行的程序</p><p>实例：</p><pre><code class="hljs bash"><span class="hljs-built_in">kill</span> -9 $(netstat -nlp | grep :8080 | awk <span class="hljs-string">&#x27;&#123;print $7&#125;&#x27;</span> | awk -F<span class="hljs-string">&quot;/&quot;</span> <span class="hljs-string">&#x27;&#123; print $1 &#125;&#x27;</span>)</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>编程语言</category>
+      
+      <category>Linux和Shell</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Shell</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>管道符号|</title>
+    <link href="/2020/11/17/Linux%E5%92%8CShell/%E7%AE%A1%E9%81%93%E7%AC%A6%E5%8F%B7%7C/"/>
+    <url>/2020/11/17/Linux%E5%92%8CShell/%E7%AE%A1%E9%81%93%E7%AC%A6%E5%8F%B7%7C/</url>
+    
+    <content type="html"><![CDATA[<h1 id="管道符号"><a href="#管道符号" class="headerlink" title="管道符号|"></a>管道符号|</h1><p>管道符号，是unix一个很强大的功能,符号为一条竖线:”|”。</p><p>用法: command 1 | command 2 他的功能是把第一个命令command 1执行的结果作为command 2的输入传给command 2，例如:</p><pre><code class="hljs bash">ls -s|sort -nr</code></pre><p>-s 是file size，-n是numeric-sort，-r是reverse，反转</p><p>该命令列出当前目录中的文档(含size)，并把输出送给sort命令作为输入，sort命令按数字递减的顺序把ls的输出排序。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>编程语言</category>
+      
+      <category>Linux和Shell</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Shell</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Shell脚本基础</title>
+    <link href="/2020/11/17/Linux%E5%92%8CShell/Shell/"/>
+    <url>/2020/11/17/Linux%E5%92%8CShell/Shell/</url>
+    
+    <content type="html"><![CDATA[<h1 id="Shell"><a href="#Shell" class="headerlink" title="Shell"></a>Shell</h1><p>Shell 是一个用 C 语言编写的程序，它是用户使用 Linux 的桥梁。Shell 既是一种命令语言，又是一种程序设计语言。</p><h2 id="1-变量"><a href="#1-变量" class="headerlink" title="1. 变量"></a>1. 变量</h2><p>定一个变量：</p><pre><code class="hljs bash">User=<span class="hljs-string">&quot;root&quot;</span></code></pre><p>输出变量：</p><pre><code class="hljs bash"><span class="hljs-built_in">echo</span> <span class="hljs-variable">$&#123;User&#125;</span></code></pre><h2 id="2-数组"><a href="#2-数组" class="headerlink" title="2. 数组"></a>2. 数组</h2><p>定义数组：</p><pre><code class="hljs bash">array_name=(value0 value1 value2 value3)</code></pre><p>或者：</p><pre><code class="hljs bash">array_name[0]=value0array_name[1]=value1array_name[n]=valuen</code></pre><h2 id="3-函数"><a href="#3-函数" class="headerlink" title="3. 函数"></a>3. 函数</h2><p>定义函数：</p><pre><code class="hljs bash"><span class="hljs-function"><span class="hljs-title">demoFun</span></span>()&#123;    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;这是我的第一个 shell 函数!&quot;</span>&#125;<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;-----函数开始执行-----&quot;</span>demoFun<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;-----函数执行完毕-----&quot;</span></code></pre><p>输出：</p><pre><code class="hljs bash">-----函数开始执行-----这是我的第一个 shell 函数!-----函数执行完毕-----</code></pre><h2 id="注："><a href="#注：" class="headerlink" title="注："></a>注：</h2><p>shell脚本的开头通常都会有以下内容：</p><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/bash</span>或者<span class="hljs-meta">#!/bin/sh</span>或者<span class="hljs-meta">#!/bin/awk</span></code></pre><p>第一行的内容指定了shell脚本解释器的路径，而且这个指定路径只能放在文件的第一行。第一行写错或者不写时，系统会有一个默认的解释器进行解释。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>编程语言</category>
+      
+      <category>Linux和Shell</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Shell</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>SCP和SSH</title>
+    <link href="/2020/11/17/Linux%E5%92%8CShell/SCP%E5%92%8CSSH/"/>
+    <url>/2020/11/17/Linux%E5%92%8CShell/SCP%E5%92%8CSSH/</url>
+    
+    <content type="html"><![CDATA[<h1 id="SCP"><a href="#SCP" class="headerlink" title="SCP"></a>SCP</h1><p>Linux scp 命令用于 Linux 之间复制文件和目录。</p><p>scp 是 secure copy 的缩写, scp 是 linux 系统下基于 ssh 登陆进行安全的远程文件拷贝命令。</p><p>scp 是加密的，rcp 是不加密的，scp 是 rcp 的加强版。</p><h2 id="1-向服务器拷贝文件"><a href="#1-向服务器拷贝文件" class="headerlink" title="1. 向服务器拷贝文件"></a>1. 向服务器拷贝文件</h2><p>需要配置SSH密钥<br>用法：</p><pre><code class="hljs bash">scp 目标文件 用户@目标服务器地址：拷贝路径/文件名</code></pre><p>实例：</p><pre><code class="hljs bash">scp target/ruanjian.jar <span class="hljs-variable">$&#123;User&#125;</span>@<span class="hljs-variable">$&#123;Serve&#125;</span>:ruanjian.jar</code></pre><h1 id="SSH"><a href="#SSH" class="headerlink" title="SSH"></a>SSH</h1><p>SSH 为 Secure Shell 的缩写，由 IETF 的网络小组（Network Working Group）所制定；SSH 为建立在应用层基础上的安全协议。SSH 是较可靠，专为远程登录会话和其他网络服务提供安全性的协议。利用 SSH 协议可以有效防止远程管理过程中的信息泄露问题。</p><h2 id="1-连接服务器"><a href="#1-连接服务器" class="headerlink" title="1. 连接服务器"></a>1. 连接服务器</h2><p>需要配置SSH密钥</p><p>用法：</p><pre><code class="hljs bash">ssh 用户@目标服务器地址</code></pre><p>实例：</p><pre><code class="hljs bash">ssh <span class="hljs-variable">$&#123;User&#125;</span>@<span class="hljs-variable">$&#123;Serve&#125;</span></code></pre><h2 id="2-执行服务器上的shell脚本"><a href="#2-执行服务器上的shell脚本" class="headerlink" title="2. 执行服务器上的shell脚本"></a>2. 执行服务器上的shell脚本</h2><p>用法：</p><pre><code class="hljs bash">ssh 用户@目标服务器地址 sh 脚本文件</code></pre><p>实例：</p><pre><code class="hljs bash">ssh <span class="hljs-variable">$&#123;User&#125;</span>@<span class="hljs-variable">$&#123;Serve&#125;</span> sh serve.sh</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>编程语言</category>
+      
+      <category>Linux和Shell</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Shell</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="/2020/11/17/hello-world/"/>
+    <url>/2020/11/17/hello-world/</url>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span></code></pre><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre><code class="hljs bash">$ hexo server</code></pre><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre><code class="hljs bash">$ hexo generate</code></pre><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre><code class="hljs bash">$ hexo deploy</code></pre><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>编程语言</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>1.计算机的基本组成</title>
+    <link href="/2020/10/17/Computer/Computer%20Organization/01/"/>
+    <url>/2020/10/17/Computer/Computer%20Organization/01/</url>
+    
+    <content type="html"><![CDATA[<h1 id="1-计算机的基本硬件组成"><a href="#1-计算机的基本硬件组成" class="headerlink" title="1. 计算机的基本硬件组成"></a>1. 计算机的基本硬件组成</h1><p>&ensp;&ensp; &ensp;要自己组装一台计算机，要先有三大件，CPU、内存和主板。</p><h2 id="1-1-CPU-（Central-Processing-Unit）"><a href="#1-1-CPU-（Central-Processing-Unit）" class="headerlink" title="1.1 CPU （Central Processing Unit）"></a>1.1 CPU （Central Processing Unit）</h2><p>&ensp;&ensp; &ensp; 在这三大件中，我们首先要说的是 CPU，它是计算机最重要的核心配件。为什么说 CPU 是“最重要”的呢？因为计算机的所有“计算”都是由 CPU 来进行的。自然，CPU 也是整台计算机中造价最昂贵的部分之一。</p><h2 id="1-2-内存-（Memory）"><a href="#1-2-内存-（Memory）" class="headerlink" title="1.2 内存 （Memory）"></a>1.2 内存 （Memory）</h2><p>&ensp;&ensp; &ensp; 第二个重要的配件，就是内存。你撰写的程序、打开的浏览器、运行的游戏，都要加载到内存里才能运行。程序读取的数据、计算得到的结果，也都要放在内存里。内存越大，能加载的东西自然也就越多。</p><h2 id="1-3-主板-（Motherboard）"><a href="#1-3-主板-（Motherboard）" class="headerlink" title="1.3 主板 （Motherboard）"></a>1.3 主板 （Motherboard）</h2><p>&ensp;&ensp; &ensp; 主板是一个有着各种各样，有时候多达数十乃至上百个插槽的配件。我们的 CPU 要插在主板上，内存也要插在主板上。主板的芯片组（Chipset）和总线（Bus）解决了 CPU 和内存之间如何通信的问题。芯片组控制了数据传输的流转，也就是数据从哪里到哪里的问题。总线则是实际数据传输的高速公路。因此，总线速度（Bus Speed）决定了数据能传输得多快。</p><h2 id="1-4-其他设备"><a href="#1-4-其他设备" class="headerlink" title="1.4 其他设备"></a>1.4 其他设备</h2><p>&ensp;&ensp; &ensp; 有了三大件，只要配上电源供电，计算机差不多就可以跑起来了。但是现在还缺少各类输入（Input）/ 输出（Output）设备，也就是我们常说的 I/O 设备。例如显示器、鼠标、键盘和硬盘等，这些东西并不是一台计算机必须的部分。</p><p>&ensp;&ensp; &ensp; 还有一个很特殊的设备，就是显卡（Graphics Card）现在的主板都带了内置的显卡。如果你用计算机玩游戏，做图形渲染或者跑深度学习应用，你多半就需要买一张单独的显卡，插在主板上。显卡之所以特殊，是因为显卡里有除了 CPU 之外的另一个“处理器”，也就是 GPU（Graphics Processing Unit，图形处理器），GPU 一样可以做各种“计算”的工作。</p><h2 id="1-5-设备间的通信"><a href="#1-5-设备间的通信" class="headerlink" title="1.5 设备间的通信"></a>1.5 设备间的通信</h2><p>&ensp;&ensp; &ensp; 鼠标、键盘以及硬盘，这些都是插在主板上的。作为外部 I/O 设备，它们是通过主板上的南桥（SouthBridge）芯片组，来控制和 CPU 之间的通信的。“南桥”芯片的名字很直观，一方面，它在主板上的位置，通常在主板的“南面”。另一方面，它的作用就是作为“桥”，来连接鼠标、键盘以及硬盘这些外部设备和 CPU 之间的通信。有了南桥，自然对应着也有“北桥”。是的，以前的主板上通常也有“北桥”芯片，用来作为“桥”，连接 CPU 和内存、显卡之间的通信。不过，随着时间的变迁，现在的主板上的“北桥”芯片的工作，已经被移到了 CPU 的内部，所以你在主板上，已经看不到北桥芯片了。</p><h1 id="2-冯·诺依曼体系结构"><a href="#2-冯·诺依曼体系结构" class="headerlink" title="2. 冯·诺依曼体系结构"></a>2. 冯·诺依曼体系结构</h1><p>&ensp;&ensp; &ensp; 计算机祖师爷之一冯·诺依曼（John von Neumann）提出的冯·诺依曼体系结构（Von Neumann architecture），也叫存储程序计算机。</p><h2 id="2-1-相关概念"><a href="#2-1-相关概念" class="headerlink" title="2.1 相关概念"></a>2.1 相关概念</h2><p>&ensp;&ensp; &ensp; 存储程序计算机暗含了两个概念，一个是“可编程”计算机，一个是“存储”计算机。</p><h3 id="2-1-1-“可编程”计算机"><a href="#2-1-1-“可编程”计算机" class="headerlink" title="2.1.1 “可编程”计算机"></a>2.1.1 “可编程”计算机</h3><p>&ensp;&ensp; &ensp; 计算机是由各种门电路组合而成的，然后通过组装出一个固定的电路板，来完成一个特定的计算程序。一旦需要修改功能，就要重新组装电路。这样的话，计算机就是“不可编程”的，因为程序在计算机硬件层面是“写死”的。最常见的就是老式计算器，电路板设好了加减乘除，做不了任何计算逻辑固定之外的事情。</p><h3 id="2-1-2-“存储”计算机"><a href="#2-1-2-“存储”计算机" class="headerlink" title="2.1.2 “存储”计算机"></a>2.1.2 “存储”计算机</h3><p>&ensp;&ensp; &ensp; 程序本身是存储在计算机的内存里，可以通过加载不同的程序来解决不同的问题。有“存储程序计算机”，自然也有不能存储程序的计算机。典型的就是早年的“Plugboard”这样的插线板式的计算机。整个计算机就是一个巨大的插线板，通过在板子上不同的插头或者接口的位置插入线路，来实现不同的功能。这样的计算机自然是“可编程”的，但是编写好的程序不能存储下来供下一次加载使用，不得不每次要用到和当前不同的“程序”的时候，重新插板子，重新“编程”。</p><h2 id="2-2-冯·诺依曼描述的计算机"><a href="#2-2-冯·诺依曼描述的计算机" class="headerlink" title="2.2 冯·诺依曼描述的计算机"></a>2.2 冯·诺依曼描述的计算机</h2><p>&ensp;&ensp; &ensp; 冯·诺依曼基于当时在秘密开发的 EDVAC 写了一篇报告First Draft of a Report on the EDVAC，描述了他心目中的一台计算机应该长什么样。这篇报告在历史上有个很特殊的简称，叫 First Draft，翻译成中文，其实就是《第一份草案》。这样，现代计算机的发展就从祖师爷写的一份草案开始了。First Draft 里面说了一台计算机应该有哪些部分组成，我们一起来看看。<br><img src="/img/computer/1.jpeg" alt="avatar"></p><h2 id="2-2-1-处理器单元（Processing-Unit）"><a href="#2-2-1-处理器单元（Processing-Unit）" class="headerlink" title="2.2.1 处理器单元（Processing Unit）"></a>2.2.1 处理器单元（Processing Unit）</h2><p>&ensp;&ensp; &ensp; 首先是一个包含算术逻辑单元（Arithmetic Logic Unit，ALU）和处理器寄存器（Processor Register）的处理器单元，用来完成各种算术和逻辑运算。因为它能够完成各种数据的处理或者计算工作，因此也有人把这个叫作数据通路（Datapath）或者运算器。</p><h2 id="2-2-2-控制器单元（Control-Unit-CU）"><a href="#2-2-2-控制器单元（Control-Unit-CU）" class="headerlink" title="2.2.2 控制器单元（Control Unit/CU）"></a>2.2.2 控制器单元（Control Unit/CU）</h2><p>&ensp;&ensp; &ensp; 然后是一个包含指令寄存器（Instruction Register）和程序计数器（Program Counter）的控制器单元（Control Unit/CU），用来控制程序的流程，通常就是不同条件下的分支和跳转。在现在的计算机里，上面的算术逻辑单元和这里的控制器单元，共同组成了我们说的 CPU。</p><h2 id="2-2-3-内存和外部存储"><a href="#2-2-3-内存和外部存储" class="headerlink" title="2.2.3 内存和外部存储"></a>2.2.3 内存和外部存储</h2><p>&ensp;&ensp; &ensp; 接着是用来存储数据（Data）和指令（Instruction）的内存。以及更大容量的外部存储，在过去，可能是磁带、磁鼓这样的设备，现在通常就是硬盘。</p><h2 id="2-2-3-I-O设备"><a href="#2-2-3-I-O设备" class="headerlink" title="2.2.3 I/O设备"></a>2.2.3 I/O设备</h2><p>&ensp;&ensp; &ensp; 最后就是各种输入和输出设备，以及对应的输入和输出机制。我们现在无论是使用什么样的计算机，其实都是和输入输出设备在打交道。个人电脑的鼠标键盘是输入设备，显示器是输出设备。我们用的智能手机，触摸屏既是输入设备，又是输出设备。而跑在各种云上的服务器，则是通过网络来进行输入和输出。这个时候，网卡既是输入设备又是输出设备。</p><h2 id="2-2-4-总结"><a href="#2-2-4-总结" class="headerlink" title="2.2.4 总结"></a>2.2.4 总结</h2><p>&ensp;&ensp; &ensp; 任何一台计算机的任何一个部件都可以归到运算器、控制器、存储器、输入设备和输出设备中，而所有的现代计算机也都是基于这个基础架构来设计开发的。而所有的计算机程序，也都可以抽象为从输入设备读取输入信息，通过运算器和控制器来执行存储在存储器里的程序，最终把结果输出到输出设备中。而我们所有撰写的无论高级还是低级语言的程序，也都是基于这样一个抽象框架来进行运作的。</p><p>&ensp;&ensp; &ensp; 本文内容来源于 极客时间《深入浅出计算机组成原理》</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>计算机基础</category>
+      
+      <category>计算机组成原理</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>计算机基础</tag>
+      
+      <tag>计算机组成原理</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>3.计算机指令</title>
+    <link href="/2020/10/17/Computer/Computer%20Organization/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8C%87%E4%BB%A4/"/>
+    <url>/2020/10/17/Computer/Computer%20Organization/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8C%87%E4%BB%A4/</url>
+    
+    <content type="html"><![CDATA[<h1 id="1-计算机指令"><a href="#1-计算机指令" class="headerlink" title="1. 计算机指令"></a>1. 计算机指令</h1><p>&ensp;&ensp; &ensp; 从软件工程师的角度来讲，CPU 就是一个执行各种计算机指令（Instruction Code）的逻辑机器。这里的计算机指令，就好比一门 CPU 能够听得懂的语言，我们也可以把它叫作机器语言（Machine Language）。不同的 CPU 能够听懂的语言不太一样。比如，我们的个人电脑用的是 Intel 的 CPU，苹果手机用的是 ARM 的 CPU。这两者能听懂的语言就不太一样。类似这样两种 CPU 各自支持的语言，就是两组不同的计算机指令集，英文叫 Instruction Set。这里面的“Set”，其实就是数学上的集合，代表不同的单词、语法。所以，如果我们在自己电脑上写一个程序，然后把这个程序复制一下，装到自己的手机上，肯定是没办法正常运行的，因为这两者语言不通。而一台电脑上的程序，简单复制一下到另外一台电脑上，通常就能正常运行，因为这两台 CPU 有着相同的指令集，也就是说，它们的语言相通的。一个计算机程序，不可能只有一条指令，而是由成千上万条指令组成的。但是 CPU 里不能一直放着所有指令，所以计算机程序平时是存储在存储器中的。这种程序指令存储在存储器里面的计算机，我们就叫作存储程序型计算机（Stored-program Computer）。</p><h1 id="2-汇编语言"><a href="#2-汇编语言" class="headerlink" title="2. 汇编语言"></a>2. 汇编语言</h1><p>&ensp;&ensp; &ensp;要让一段程序在一个 Linux 操作系统上跑起来，我们需要把整个程序翻译成一个汇编语言（ASM，Assembly Language）的程序，这个过程我们一般叫编译（Compile）成汇编代码。针对汇编代码，我们可以再用汇编器（Assembler）翻译成机器码（Machine Code）。这些机器码由“0”和“1”组成的机器语言表示。这一条条机器码，就是一条条的计算机指令。这样一串串的 16 进制数字，就是我们 CPU 能够真正认识的计算机指令。在一个 Linux 操作系统上，我们可以简单地使用 gcc 和 objdump 这样两条命令，把对应的汇编代码和机器码都打印出来。</p><p>&ensp;&ensp; &ensp;我们实际在用 GCC（GUC 编译器套装，GNU Compiler Collectipon）编译器的时候，可以直接把代码编译成机器码呀，为什么还需要汇编代码呢？原因很简单，你看着那一串数字表示的机器码，是不是摸不着头脑？但是即使你没有学过汇编代码，看的时候多少也能“猜”出一些这些代码的含义。<br>&ensp;&ensp; &ensp;因为汇编代码其实就是“给程序员看的机器码”，也正因为这样，机器码和汇编代码是一一对应的。我们人类很容易记住 add、mov 这些用英文表示的指令，而 8b 45 f8 这样的指令，由于很难一下子看明白是在干什么，所以会非常难以记忆。</p><h1 id="3-解析指令和机器码"><a href="#3-解析指令和机器码" class="headerlink" title="3. 解析指令和机器码"></a>3. 解析指令和机器码</h1><p>&ensp;&ensp; &ensp;我们日常用的 Intel CPU，有 2000 条左右的 CPU 指令，一般来说，常见的指令可以分成五大类:</p><h2 id="3-1-算术类指令。"><a href="#3-1-算术类指令。" class="headerlink" title="3.1 算术类指令。"></a>3.1 算术类指令。</h2><p>&ensp;&ensp; &ensp;我们的加减乘除，在 CPU 层面，都会变成一条条算术类指令。</p><h2 id="3-2-数据传输类指令。"><a href="#3-2-数据传输类指令。" class="headerlink" title="3.2 数据传输类指令。"></a>3.2 数据传输类指令。</h2><p>&ensp;&ensp; &ensp;给变量赋值、在内存里读写数据，用的都是数据传输类指令。</p><h2 id="3-3-逻辑类指令。"><a href="#3-3-逻辑类指令。" class="headerlink" title="3.3 逻辑类指令。"></a>3.3 逻辑类指令。</h2><p>&ensp;&ensp; &ensp;逻辑上的与或非，都是这一类指令。</p><h2 id="3-4-条件分支类指令。"><a href="#3-4-条件分支类指令。" class="headerlink" title="3.4 条件分支类指令。"></a>3.4 条件分支类指令。</h2><p>&ensp;&ensp; &ensp;日常我们写的“if/else”，其实都是条件分支类指令。</p><h2 id="3-5-无条件跳转指令。"><a href="#3-5-无条件跳转指令。" class="headerlink" title="3.5 无条件跳转指令。"></a>3.5 无条件跳转指令。</h2><p>&ensp;&ensp; &ensp;写一些大一点的程序，我们常常需要写一些函数或者方法。在调用函数的时候，其实就是发起了一个无条件跳转指令。</p><p><img src="/img/computer/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8C%87%E4%BB%A4.jpeg" alt="avatar"></p><h1 id="4-MIPS指令集"><a href="#4-MIPS指令集" class="headerlink" title="4. MIPS指令集"></a>4. MIPS指令集</h1><p>&ensp;&ensp; &ensp;不同的 CPU 有不同的指令集，也就对应着不同的汇编语言和不同的机器码。MIPS 是一组由 MIPS 技术公司在 80 年代中期设计出来的 CPU 指令集。</p><p>&ensp;&ensp; &ensp;MIPS 的指令是一个 32 位的整数，高 6 位叫操作码（Opcode），也就是代表这条指令具体是一条什么样的指令，剩下的 26 位有三种格式，分别是 R、I 和 J。</p><p>&ensp;&ensp; &ensp;R 指令是一般用来做算术和逻辑操作，里面有读取和写入数据的寄存器的地址。如果是逻辑位移操作，后面还有位移操作的位移量，而最后的功能码，则是在前面的操作码不够的时候，扩展操作码表示对应的具体指令的。</p><p>&ensp;&ensp; &ensp;I 指令，则通常是用在数据传输、条件分支，以及在运算的时候使用的并非变量还是常数的时候。这个时候，没有了位移量和操作码，也没有了第三个寄存器，而是把这三部分直接合并成了一个地址值或者一个常数。</p><p>&ensp;&ensp; &ensp;J 指令就是一个跳转指令，高 6 位之外的 26 位都是一个跳转后的地址。</p><p><img src="/img/computer/mips%E6%8C%87%E4%BB%A4%E9%9B%86.jpeg" alt="avatar"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>计算机基础</category>
+      
+      <category>计算机组成原理</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>计算机基础</tag>
+      
+      <tag>计算机组成原理</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>2.计算机组成原理知识地图</title>
+    <link href="/2020/10/17/Computer/Computer%20Organization/02/"/>
+    <url>/2020/10/17/Computer/Computer%20Organization/02/</url>
+    
+    <content type="html"><![CDATA[<h1 id="1-计算机组成原理知识地图"><a href="#1-计算机组成原理知识地图" class="headerlink" title="1. 计算机组成原理知识地图"></a>1. 计算机组成原理知识地图</h1><p><img src="/img/computer/2.jpg" alt="avatar"></p><p>&ensp;&ensp; &ensp; 计算机组成原理的英文叫 Computer Organization。这里的 Organization 是“组织机构”的意思。计算机由很多个不同的部件放在一起，变成了一个“组织机构”。这个组织机构最终能够进行各种计算、控制、读取输入，进行输出，达成各种强大的功能。在这张图里面，我们把整个计算机组成原理的知识点拆分成了四大部分，分别是计算机的基本组成、计算机的指令和计算、处理器设计，以及存储器和 I/O 设备。</p><h2 id="1-1-计算机的基本组成"><a href="#1-1-计算机的基本组成" class="headerlink" title="1.1 计算机的基本组成"></a>1.1 计算机的基本组成</h2><p>&ensp;&ensp; &ensp;这一部分，你需要学习计算机是由哪些硬件组成的。这些硬件，又是怎么对应到经典的冯·诺依曼体系结构中的，也就是运算器、控制器、存储器、输入设备和输出设备这五大基本组件。除此之外，你还需要了解计算机的两个核心指标，性能和功耗。性能和功耗也是我们在应用和设计五大基本组件中需要重点考虑的因素。</p><h2 id="1-2-计算机的指令和计算"><a href="#1-2-计算机的指令和计算" class="headerlink" title="1.2 计算机的指令和计算"></a>1.2 计算机的指令和计算</h2><p>&ensp;&ensp; &ensp;在计算机指令部分，你需要搞明白，我们每天撰写的一行行 C、Java、PHP 程序，是怎么在计算机里面跑起来的。这里面，你既需要了解我们的程序是怎么通过编译器和汇编器，变成一条条机器指令这样的编译过程（如果把编译过程展开的话，可以变成一门完整的编译原理课程），还需要知道我们的操作系统是怎么链接、装载、执行这些程序的（这部分知识如果再深入学习，又可以变成一门操作系统课程）。而这一条条指令执行的控制过程，就是由计算机五大组件之一的控制器来控制的。在计算机的计算部分，你要从二进制和编码开始，理解我们的数据在计算机里的表示，以及我们是怎么从数字电路层面，实现加法、乘法这些基本的运算功能的。实现这些运算功能的 ALU（Arithmetic Logic Unit/ALU），也就是算术逻辑单元，其实就是我们计算机五大组件之一的运算器。</p><p>&ensp;&ensp; &ensp;这里面有一个在今天看起来特别重要的知识点，就是浮点数（Floating Point）。浮点数是我们在日常运用中非常容易用错的一种数据表示形式。掌握浮点数能让你对数据的编码、存储和计算能够有一个从表到里的深入理解。尤其在 AI 火热的今天，浮点数是机器学习中重度使用的数据表示形式，掌握它更是非常有必要。</p><h2 id="1-3-CPU-的设计"><a href="#1-3-CPU-的设计" class="headerlink" title="1.3 CPU 的设计"></a>1.3 CPU 的设计</h2><p>&ensp;&ensp; &ensp;明白计算机指令和计算是如何运转的，我们就可以深入到 CPU 的设计中去一探究竟了。CPU 时钟可以用来构造寄存器和内存的锁存器和触发器，因此，CPU 时钟应该是我们学习 CPU 的前导知识。搞明白我们为什么需要 CPU 时钟（CPU Clock），以及寄存器和内存是用什么样的硬件组成的之后，我们可以再来看看，整个计算机的数据通路是如何构造出来的。数据通路，其实就是连接了整个运算器和控制器，并最终组成了 CPU。而出于对于性能和功耗的考虑，你要进一步理解和掌握面向流水线设计的 CPU、数据和控制冒险，以及分支预测的相关技术。既然 CPU 作为控制器要和输入输出设备通信，那么我们就要知道异常和中断发生的机制。在 CPU 设计部分的最后，我会讲一讲指令的并行执行，看看如何直接在 CPU 层面，通过 SIMD 来支持并行计算。</p><h2 id="1-4-存储器和-I-O-设备"><a href="#1-4-存储器和-I-O-设备" class="headerlink" title="1.4 存储器和 I/O 设备"></a>1.4 存储器和 I/O 设备</h2><p>&ensp;&ensp; &ensp;最后，我们需要看一看，计算机五大组成部分之一，存储器的原理。通过存储器的层次结构作为基础的框架引导，你需要掌握从上到下的 CPU 高速缓存、内存、SSD 硬盘和机械硬盘的工作原理，它们之间的性能差异，以及实际应用中利用这些设备会遇到的挑战。存储器其实很多时候又扮演了输入输出设备的角色，所以你需要进一步了解，CPU 和这些存储器之间是如何进行通信的，以及我们最重视的性能问题是怎么一回事；理解什么是 IO_WAIT，如何通过 DMA 来提升程序性能。对于存储器，我们不仅需要它们能够正常工作，还要确保里面的数据不能丢失。于是你要掌握我们是如何通过 RAID、Erasure Code、ECC 以及分布式 HDFS，这些不同的技术，来确保数据的完整性和访问性能。</p><p>&ensp;&ensp; &ensp; 本文内容来源于 极客时间《深入浅出计算机组成原理》</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>计算机基础</category>
+      
+      <category>计算机组成原理</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>计算机基础</tag>
+      
+      <tag>计算机组成原理</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>MarkDown基础语法</title>
+    <link href="/2020/09/08/Tools/Markdown/"/>
+    <url>/2020/09/08/Tools/Markdown/</url>
+    
+    <content type="html"><![CDATA[<h1 id="Markdown语法"><a href="#Markdown语法" class="headerlink" title="Markdown语法"></a>Markdown语法</h1><h2 id="1-标题"><a href="#1-标题" class="headerlink" title="1.标题"></a>1.标题</h2><table><thead><tr><th>类型</th><th align="left">写法</th></tr></thead><tbody><tr><td>一级标题</td><td align="left"># headings</td></tr><tr><td>一级标题</td><td align="left">## headings</td></tr><tr><td>…</td><td align="left">…</td></tr></tbody></table><hr><h2 id="2-字体"><a href="#2-字体" class="headerlink" title="2.字体"></a>2.字体</h2><table><thead><tr><th>类型</th><th align="left">写法</th><th align="left">效果</th></tr></thead><tbody><tr><td>斜体</td><td align="left">一个*号包起来</td><td align="left"><em>这是倾斜的文字</em></td></tr><tr><td>加粗</td><td align="left">两个*号包起来</td><td align="left"><strong>这是加粗的文字</strong></td></tr><tr><td>斜体加粗</td><td align="left">三个*号包起来</td><td align="left"><strong><em>这是斜体加粗的文字</em></strong></td></tr><tr><td>删除线</td><td align="left">两个~号包起来</td><td align="left"><del>这是加删除线的文字</del></td></tr></tbody></table><hr><h2 id="3-引用"><a href="#3-引用" class="headerlink" title="3.引用"></a>3.引用</h2><table><thead><tr><th>类型</th><th align="left">写法</th></tr></thead><tbody><tr><td>引用</td><td align="left">在引用的文字前加&gt;即可。可以嵌套</td></tr></tbody></table><blockquote><p>这是引用的内容</p><blockquote><p>这是引用的内容</p></blockquote></blockquote><hr><h2 id="4-分割线"><a href="#4-分割线" class="headerlink" title="4.分割线"></a>4.分割线</h2><table><thead><tr><th>类型</th><th align="left">写法</th></tr></thead><tbody><tr><td>分割线</td><td align="left">三个或者三个以上的 - 或者 * 都可以。</td></tr></tbody></table><hr><h2 id="5-列表"><a href="#5-列表" class="headerlink" title="5.列表"></a>5.列表</h2><table><thead><tr><th>类型</th><th align="left">写法</th><th align="left">示例</th></tr></thead><tbody><tr><td>无序列表</td><td align="left">- + *与内容并列一行</td><td align="left">- 列表内容</td></tr><tr><td>有序列表</td><td align="left">数字加点</td><td align="left">1. 列表内容</td></tr></tbody></table><ul><li>列表内容1</li></ul><ul><li>列表内容2</li></ul><ul><li>列表内容3</li></ul><ol><li>列表内容1</li><li>列表内容2</li><li>列表内容3</li></ol><hr><h2 id="6-表格"><a href="#6-表格" class="headerlink" title="6.表格"></a>6.表格</h2><pre><code class="hljs elixir">表头|表头|表头---|<span class="hljs-symbol">:--</span><span class="hljs-symbol">:|---</span>内容|内容|内容第二行分割表头和内容。- 有一个就行，为了对齐，多加了几个文字默认居左-两边加：表示文字居中-右边加：表示文字居右</code></pre><table><thead><tr><th>姓名</th><th align="center">技能</th><th align="right">排行</th></tr></thead><tbody><tr><td>刘备</td><td align="center">哭</td><td align="right">大哥</td></tr><tr><td>关羽</td><td align="center">打</td><td align="right">二哥</td></tr><tr><td>张飞</td><td align="center">骂</td><td align="right">三弟</td></tr></tbody></table><hr><h2 id="7-代码"><a href="#7-代码" class="headerlink" title="7.代码"></a>7.代码</h2><h3 id="单行代码"><a href="#单行代码" class="headerlink" title="单行代码"></a>单行代码</h3><pre><code class="hljs arcade"><span class="hljs-string">`代码内容`</span></code></pre><h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><p><code>create database hero;</code></p><h3 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a>代码块</h3><pre><code class="hljs JavaScript">（<span class="hljs-string">``</span><span class="hljs-string">`）&#123;代码语言：Java..&#125;</span><span class="hljs-string">代码内容</span><span class="hljs-string">（`</span><span class="hljs-string">``</span>）</code></pre><h3 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h3><pre><code class="hljs JavaScript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fun</span>(<span class="hljs-params"></span>)</span>&#123;     echo <span class="hljs-string">&quot;这是一句非常牛逼的代码&quot;</span>;&#125;fun();</code></pre><hr>]]></content>
+    
+    
+    <categories>
+      
+      <category>实用工具</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  
+</search>
